@@ -292,6 +292,40 @@ bool I2cImu::ImuSettings::loadSettings()
 	  	ROS_INFO("No Calibration for Compass");
 	}
 	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	std::vector<double> compassEl1, compassEl2, compassEl3, compassElOffset;
+        if (settings_nh_->getParam("calib/compass_el_1", compassEl1)
+                        && settings_nh_->getParam("calib/compass_el_2", compassEl2)
+                        && settings_nh_->getParam("calib/compass_el_3", compassEl3)
+                        && settings_nh_->getParam("calib/compass_el_off", compassElOffset)
+                        && compassEl1.size() == 3 && compassEl2.size() == 3 && compassEl3.size() == 3 && compassElOffset.size() == 3)
+        {
+		//m_compassCalEllipsoidCorr[0] = RTVector3(compassEl1[0], compassEl1[1], compassEl1[2]);
+		m_compassCalEllipsoidCorr[0][0] = compassEl1[0];
+		m_compassCalEllipsoidCorr[0][1] = compassEl1[1];
+		m_compassCalEllipsoidCorr[0][2] = compassEl1[2];
+    		//m_compassCalEllipsoidCorr[1] = RTVector3(compassEl2[0], compassEl2[1], compassEl2[2]);
+		m_compassCalEllipsoidCorr[1][0] = compassEl2[0];
+                m_compassCalEllipsoidCorr[1][1] = compassEl2[1];
+                m_compassCalEllipsoidCorr[1][2] = compassEl2[2];
+    		//m_compassCalEllipsoidCorr[2] = RTVector3(compassEl3[0], compassEl3[1], compassEl3[2]);
+                m_compassCalEllipsoidCorr[2][0] = compassEl3[0];
+                m_compassCalEllipsoidCorr[2][1] = compassEl3[1];
+                m_compassCalEllipsoidCorr[2][2] = compassEl3[2];
+
+		m_compassCalEllipsoidOffset = RTVector3(compassElOffset[0],compassElOffset[1], compassElOffset[2]);
+                m_compassCalEllipsoidValid = true;
+
+                ROS_INFO("Got Ellipsoid Calibration for Compass");
+        }
+        else
+        {
+                ROS_INFO("No Ellipsoid Calibration for Compass");
+        }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	std::vector<double> accel_max, accel_min;
 	if (settings_nh_->getParam("calib/accel_min", accel_min)
 			&& settings_nh_->getParam("calib/accel_max", accel_max)

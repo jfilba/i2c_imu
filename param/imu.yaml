@@ -1,16 +1,17 @@
-imu_type: 2
+imu_type: 7
 imu_frame: imu_link
-i2c_bus: 0 
+i2c_bus: 1 
 i2c_slave_address: 104
 fusion_type: 2
+axis_rotation: 0
 
-mpu9150:
+mpu9250:
   #Sample Rates
-  compass_sample_rate: 25
-  gyro_accel_sample_rate: 50
+  compass_sample_rate: 40
+  gyro_accel_sample_rate: 80
   
   #Accel
-  accel_low_pass_filter: 4
+  accel_low_pass_filter: 3
   accel_full_scale_range: 16
   
   #Gyro
@@ -19,11 +20,14 @@ mpu9150:
 
 #Calibration
 calib:
-  compass_min: [-28.451460, -42.645390, -38.086895]
-  compass_max: [68.179794, 48.143326, 57.744003]
+  compass_min: [-32.864559, -46.663071, -59.108345]
+  compass_max: [56.768913, 39.815205, 35.514961]
   
-  accel_min: [ -1.004789, -1.014467, -1.015889 ]
-  accel_max: [ 0.995606, 1.002416, 0.996524 ]
+  accel_min: [ -1.009851, -1.013948, -1.039636 ]
+  accel_max: [ 1.020923, 1.015545, 1.000330 ]
              
-  
+  compass_el_1: [0.957997, -0.014514, -0.003922]
+  compass_el_2: [-0.014514, 0.958799, -0.000401]
+  compass_el_3: [-0.003922, -0.000401, 0.999609]
+  compass_el_off: [-0.841876, -0.462992, 0.631170]  
   
